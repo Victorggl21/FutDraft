@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/estadio3"
+    tools:context=".fd132">
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="75dp"
+        android:layout_height="105dp"
+        android:layout_centerHorizontal="false"
+        android:layout_marginLeft="-15dp"
+        android:layout_marginTop="180dp"
+        android:layout_toRightOf="@id/imageButton12"
+        android:background="@drawable/draft_card"
+        android:onClick="abrirdelantero" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="75dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginRight="-13dp"
+        android:layout_toLeftOf="@id/imageButton12"
+        android:background="@drawable/draft_card"
+        android:onClick="abrirdelantero" />
+
+    <ImageButton
+        android:id="@+id/imageButton10"
+        android:layout_width="75dp"
+        android:layout_height="105dp"
+        android:layout_alignParentBottom="false"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="38dp"
+        android:layout_marginBottom="340dp"
+        android:layout_toRightOf="@id/imageButton12"
+        android:background="@drawable/draft_card"
+        android:onClick="abrirmc" />
+
+    <ImageButton
+        android:id="@+id/imageButton11"
+        android:layout_width="75dp"
+        android:layout_height="105dp"
+        android:layout_alignParentBottom="false"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="38dp"
+        android:layout_marginBottom="257dp"
+        android:layout_toLeftOf="@id/imageButton13"
+        android:background="@drawable/draft_card"
+        android:onClick="abrirmc" />
+
+    <ImageButton
+        android:id="@+id/imageButton12"
+        android:layout_width="75dp"
+        android:layout_height="105dp"
+        android:layout_alignParentBottom="false"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="380dp"
+        android:background="@drawable/draft_card"
+        android:onClick="abrirmc" />
+
+    <ImageButton
+        android:id="@+id/imageButton13"
+        android:layout_width="75dp"
+        android:layout_height="105dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/draft_card"
+        android:onClick="abrirdf" />
+
+    <ImageButton
+        android:id="@+id/imageButton14"
+        android:layout_width="75dp"
+        android:layout_height="105dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/draft_card"
+        android:onClick="abrirpt" />
+</RelativeLayout>
