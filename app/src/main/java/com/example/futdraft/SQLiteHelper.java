@@ -19,13 +19,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(EstructuraBBDD.SQL_CREATE_ALINEACION);
-        db.execSQL(EstructuraBBDD.SQL_CREATE_EQUIPO);
+        db.execSQL(EstructuraBBDD.SQL_CREATE_TITULARES);
+        db.execSQL(EstructuraBBDD.SQL_CREATE_JUGADOR);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(EstructuraBBDD.SQL_DELETE_ALINEACION);
         //Se crea la nueva versión de la tabla
-        db.execSQL(EstructuraBBDD.SQL_DELETE_EQUIPO);
+        db.execSQL(EstructuraBBDD.SQL_DELETE_TITULARES);
+        db.execSQL(EstructuraBBDD.SQL_DELETE_JUGADOR);
     }
 }

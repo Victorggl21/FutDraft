@@ -23,7 +23,7 @@ public class Eleccion extends AppCompatActivity {
             R.drawable.cartakuni8,R.drawable.cartakuni9,
             R.drawable.cartapio1,R.drawable.cartapio2,
             R.drawable.cartaporcinos1,R.drawable.cartaporcinos2,
-            R.drawable.cartarayo2,R.drawable.cartarayo3,R.drawable.cartarayo4,R.drawable.cartarayo9,R.drawable.eacarta,
+            R.drawable.cartarayo2,R.drawable.cartarayo3,R.drawable.cartarayo4,R.drawable.cartarayo9,R.drawable.cartarayo1,
             R.drawable.cartasaiyans5,R.drawable.cartasaiyans6,R.drawable.cartasaiyans7,
             R.drawable.cartatroncos7,R.drawable.cartatroncos8,R.drawable.cartatroncos9,
             R.drawable.cartaum1,
@@ -70,7 +70,7 @@ public class Eleccion extends AppCompatActivity {
     }
 
     public void volveralineacion(View view) {
-        helper = new SQLiteHelper(this);
+        /*helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
         Cursor cursor =
         db.query(EstructuraBBDD.Alineacion.TABLE_NAME_ALINEACION, null,
@@ -95,9 +95,9 @@ public class Eleccion extends AppCompatActivity {
         }else if(nombre=="321"){
             Intent i = new Intent(this,fd321.class);
             startActivity(i);
-        }
+        }*/
 
-        //onBackPressed();
+        onBackPressed();
 
     }
 

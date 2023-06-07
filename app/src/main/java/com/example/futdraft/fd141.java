@@ -90,26 +90,44 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.imageButton:
+                abrirpt(null);
                 btn1.setEnabled(false);
+                btn1.setAlpha(0.5F);
                 break;
             case R.id.imageButton2:
+                abrirdf(null);
                 btn2.setEnabled(false);
+                btn2.setAlpha(0.5F);
                 break;
             case R.id.imageButton3:
+                abrirmc(null);
                 btn3.setEnabled(false);
+                btn3.setAlpha(0.5F);
                 break;
             case R.id.imageButton4:
+                abrirmc(null);
                 btn4.setEnabled(false);
+                btn4.setAlpha(0.5F);
                 break;
             case R.id.imageButton5:
+                abrirmc(null);
                 btn5.setEnabled(false);
+                btn5.setAlpha(0.5F);
                 break;
             case R.id.imageButton6:
+                abrirmc(null);
                 btn6.setEnabled(false);
+                btn6.setAlpha(0.5F);
                 break;
             case R.id.imageButton7:
+                abrirdelantero(null);
                 btn7.setEnabled(false);
+                btn7.setAlpha(0.5F);
                 break;
+            default:
+
+                break;
+
         }
     }
 }

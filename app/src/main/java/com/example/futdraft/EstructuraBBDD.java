@@ -16,21 +16,22 @@ public final class EstructuraBBDD {
                     +"(" + Jugador._ID + " integer PRIMARY KEY, "
                     + Jugador.COLUMN_NOMBRE + " text, "
                     + Jugador.COLUMN_POSICION + " text, "
+                    + Jugador.COLUMN_EQUIPO + "text,"
                     + Jugador.COLUMN_MEDIA+ " integer);";
 
     public static final String SQL_DELETE_JUGADOR =
             "DROP TABLE IF EXISTS " + Jugador.TABLE_NAME_JUGADOR;
 
+    //HACER UNA TABLA CON EL EQUIPO QUE VAMOS ESCOGIENDO: FOTO JUGADOR POSICION
+    public static final String SQL_CREATE_TITULARES =
+            "CREATE TABLE IF NOT EXISTS "+ Titulares.TABLE_NAME_TITULARES
+                    +"(" + Titulares._ID + " integer PRIMARY KEY, "
+                    + Titulares.COLUMN_POSICION + " text, "
+                    + Titulares.COLUMN_EQUIPO + " text, "
+                    + Titulares.COLUMN_FOTO+ " integer);";
 
-    public static final String SQL_CREATE_EQUIPO =
-            "CREATE TABLE IF NOT EXISTS "+ Equipo.TABLE_NAME_EQUIPO
-                    +"(" + Equipo._ID + " integer PRIMARY KEY, "
-                    + Equipo.COLUMN_NOMBRE_EQUIPO + " text, "
-                    + Equipo.COLUMN_PRESIDENTE + " text, "
-                    + Equipo.COLUMN_FOTO+ " integer);";
-
-    public static final String SQL_DELETE_EQUIPO =
-            "DROP TABLE IF EXISTS " + Equipo.TABLE_NAME_EQUIPO;
+    public static final String SQL_DELETE_TITULARES =
+            "DROP TABLE IF EXISTS " + Titulares.TABLE_NAME_TITULARES;
 
     private EstructuraBBDD() {}
     /* Clase interna que define la estructura de la tabla de operas */
@@ -41,10 +42,11 @@ public final class EstructuraBBDD {
 
     }
 
-    public static class Equipo implements BaseColumns {
-        public static final String TABLE_NAME_EQUIPO = "equipo";
-        public static final String COLUMN_NOMBRE_EQUIPO = "nombreEquipo";
-        public static final String COLUMN_PRESIDENTE = "presidente";
+
+    public static class Titulares implements BaseColumns {
+        public static final String TABLE_NAME_TITULARES = "titulares";
+        public static final String COLUMN_POSICION = "posicion";
+        public static final String COLUMN_EQUIPO = "equipo";
         public static final String COLUMN_FOTO = "foto";
     }
 
@@ -52,7 +54,8 @@ public final class EstructuraBBDD {
         public static final String TABLE_NAME_JUGADOR = "jugador";
         public static final String COLUMN_NOMBRE = "nombre";
         public static final String COLUMN_POSICION = "posicion";
-        public static final String COLUMN_MEDIA = "posicion";
+        public static final String COLUMN_EQUIPO = "equipo";
+        public static final String COLUMN_MEDIA = "media";
 
     }
 }

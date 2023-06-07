@@ -70,7 +70,7 @@ public class EleccionPT extends AppCompatActivity {
     }
 
     public void volveralineacion(View view) {
-        helper = new SQLiteHelper(this);
+        /*helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
         Cursor cursor =
                 db.query(EstructuraBBDD.Alineacion.TABLE_NAME_ALINEACION, null,
@@ -95,8 +95,8 @@ public class EleccionPT extends AppCompatActivity {
         }else if(nombre=="321"){
             Intent i = new Intent(this,fd321.class);
             startActivity(i);
-        }
-
+        }*/
+        onBackPressed();
 
     }
 }
