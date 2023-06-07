@@ -16,8 +16,9 @@ public final class EstructuraBBDD {
                     +"(" + Jugador._ID + " integer PRIMARY KEY, "
                     + Jugador.COLUMN_NOMBRE + " text, "
                     + Jugador.COLUMN_POSICION + " text, "
-                    + Jugador.COLUMN_EQUIPO + "text,"
-                    + Jugador.COLUMN_MEDIA+ " integer);";
+                    + Jugador.COLUMN_EQUIPO + " text,"
+                    + Jugador.COLUMN_MEDIA+" integer,"
+                    + Jugador.COLUMN_FOTO+" integer);";
 
     public static final String SQL_DELETE_JUGADOR =
             "DROP TABLE IF EXISTS " + Jugador.TABLE_NAME_JUGADOR;
@@ -56,6 +57,6 @@ public final class EstructuraBBDD {
         public static final String COLUMN_POSICION = "posicion";
         public static final String COLUMN_EQUIPO = "equipo";
         public static final String COLUMN_MEDIA = "media";
-
+        public static final String COLUMN_FOTO = "foto";
     }
 }
