@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/fondoeleccion2"
-            android:onClick="volveralineacion"
+            android:onClick="volveralineacion2"
             tools:srcCompat="@drawable/cartapio1" />
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/fondoeleccion2"
-            android:onClick="volveralineacion"
+            android:onClick="volveralineacion3"
             tools:srcCompat="@drawable/cartarayo2" />
     </LinearLayout>
 
@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/fondoeleccion2"
-            android:onClick="volveralineacion"
+            android:onClick="volveralineacion4"
             tools:srcCompat="@drawable/cartatroncos8" />
     </LinearLayout>
 

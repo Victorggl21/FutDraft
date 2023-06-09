@@ -3,21 +3,20 @@ package com.example.futdraft;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CursorAdapter;
 import android.widget.ImageView;
-import android.widget.SimpleCursorAdapter;
 
 import java.util.Random;
 
-public class Eleccion extends AppCompatActivity  {
+public class Eleccion extends AppCompatActivity  implements View.OnClickListener {
 
     SQLiteHelper helper;
     SQLiteDatabase db;
+
+    ImageView img1,img2,img3,img4;
 
     int [] delanteros = new int []{
             R.drawable.cartaaniaquiladores9,R.drawable.cartaaniaquiladores10,R.drawable.cartaaniaquiladores11,
@@ -49,19 +48,6 @@ public class Eleccion extends AppCompatActivity  {
 
         jugadores();
 
-        /*helper = new SQLiteHelper(this);
-        db = helper.getReadableDatabase();
-        Cursor cursor2 =
-                db.query(EstructuraBBDD.Jugador.TABLE_NAME_JUGADOR, null,
-                        null, null, null, null, null);
-        _id=cursor2.getInt(0);
-        nombre = cursor2.getString(1);
-        posicion = cursor2.getString(2);
-        equipo = cursor2.getString(3);
-        media = cursor2.getInt(4);
-        foto = cursor2.getInt(5);*/
-        consultaOperas();
-
     }
 
 
@@ -79,69 +65,80 @@ public class Eleccion extends AppCompatActivity  {
         while(delanteros[n4]==delanteros[n3] || delanteros[n4]==delanteros[n2] || delanteros[n4]==delanteros[n1] ){
             n4 = random.nextInt(delanteros.length);
         }
-        ImageView img1 = findViewById(R.id.imageButton43);
+        img1 = findViewById(R.id.imageButton43);
         img1.setImageResource(delanteros[n1]);
-        ImageView img2 = findViewById(R.id.imageButton44);
+        img2 = findViewById(R.id.imageButton44);
         img2.setImageResource(delanteros[n2]);
-        ImageView img3 = findViewById(R.id.imageButton45);
+        img3 = findViewById(R.id.imageButton45);
         img3.setImageResource(delanteros[n3]);
-        ImageView img4 = findViewById(R.id.imageButton46);
+        img4 = findViewById(R.id.imageButton46);
         img4.setImageResource(delanteros[n4]);
+
+
 
     }
 
     public void volveralineacion(View view) {
-        /*helper = new SQLiteHelper(this);
-        db = helper.getReadableDatabase();
-        Cursor cursor =
-        db.query(EstructuraBBDD.Alineacion.TABLE_NAME_ALINEACION, null,
-                null, null, null, null, null);
-
-        String nombre = cursor.getString(2);
-        if(nombre=="132"){
-            Intent i = new Intent(this,fd132.class);
-            startActivity(i);
-        }else if(nombre=="141"){
-            Intent i = new Intent(this,fd141.class);
-            startActivity(i);
-        }else if(nombre=="222"){
-            Intent i = new Intent(this,fd222.class);
-            startActivity(i);
-        }else if(nombre=="231"){
-            Intent i = new Intent(this,fd231.class);
-            startActivity(i);
-        }else if(nombre=="312"){
-            Intent i = new Intent(this,fd312.class);
-            startActivity(i);
-        }else if(nombre=="321"){
-            Intent i = new Intent(this,fd321.class);
-            startActivity(i);
-        }*/
-
-
-
-
         onBackPressed();
-
+        consultaEleccion(delanteros[n1]);
+    }
+    public void volveralineacion2(View view) {
+        onBackPressed();
+        consultaEleccion(delanteros[n2]);
+    }
+    public void volveralineacion3(View view) {
+        onBackPressed();
+        consultaEleccion(delanteros[n3]);
+    }
+    public void volveralineacion4(View view) {
+        onBackPressed();
+        consultaEleccion(delanteros[n4]);
     }
 
-    private void consultaOperas(){
+    private void consultaEleccion(int eleccion){
         helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
         Cursor cursor2 =
                 db.query(EstructuraBBDD.Jugador.TABLE_NAME_JUGADOR, null,
                         null, null, null, null, null);
+        cursor2.moveToFirst();
         String posicion = cursor2.getString(2);
         String equipo = cursor2.getString(3);
         int foto = cursor2.getInt(5);
-        ContentValues values2 = new ContentValues();
-        values2.put("posicion", posicion);
-        values2.put("equipo", equipo);
-        values2.put("foto", foto);
-        db.insert("titulares",null,values2);
+        while(foto!=eleccion){
+            cursor2.moveToNext();
+            posicion = cursor2.getString(2);
+            equipo = cursor2.getString(3);
+            foto = cursor2.getInt(5);
+
+        }
+        if(foto==eleccion){
+            ContentValues values2 = new ContentValues();
+            values2.put("posicion", posicion);
+            values2.put("equipo", equipo);
+            values2.put("foto", foto);
+            db.insert("titulares",null,values2);
+        }
         db.close();
 
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.imageButton43:
+                volveralineacion(null);
+                break;
+            case R.id.imageButton44:
+                volveralineacion2(null);
+                break;
+            case R.id.imageButton45:
+                volveralineacion3(null);
+                break;
+            case R.id.imageButton46:
+                volveralineacion4(null);
+                break;
+        }
+    }
 }

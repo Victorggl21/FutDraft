@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity  {
         inserta2("Hidalgo","DC","Xbuyer",80,R.drawable.cartaxbuyer9);
 
 
-
+        db.delete("titulares",null, null);
 
         db.close();
     }
@@ -201,6 +201,11 @@ public class MainActivity extends AppCompatActivity  {
 
     public void empezar(View view) {
         Intent i = new Intent(this,Alineacion.class);
+        startActivity(i);
+    }
+
+    public void login(View view) {
+        Intent i = new Intent(this,Login.class);
         startActivity(i);
     }
 }

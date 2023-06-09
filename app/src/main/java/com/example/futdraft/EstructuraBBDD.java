@@ -23,7 +23,7 @@ public final class EstructuraBBDD {
     public static final String SQL_DELETE_JUGADOR =
             "DROP TABLE IF EXISTS " + Jugador.TABLE_NAME_JUGADOR;
 
-    //HACER UNA TABLA CON EL EQUIPO QUE VAMOS ESCOGIENDO: FOTO JUGADOR POSICION
+
     public static final String SQL_CREATE_TITULARES =
             "CREATE TABLE IF NOT EXISTS "+ Titulares.TABLE_NAME_TITULARES
                     +"(" + Titulares._ID + " integer PRIMARY KEY, "
@@ -33,6 +33,15 @@ public final class EstructuraBBDD {
 
     public static final String SQL_DELETE_TITULARES =
             "DROP TABLE IF EXISTS " + Titulares.TABLE_NAME_TITULARES;
+
+    public static final String SQL_CREATE_USUARIO =
+            "CREATE TABLE IF NOT EXISTS "+ Usuario.TABLE_NAME_USUARIO
+                    +"(" + Usuario._ID + " integer PRIMARY KEY, "
+                    + Usuario.COLUMN_NOMBRE + " text, "
+                    + Usuario.COLUMN_CONTRASEÑA + " text);";
+
+    public static final String SQL_DELETE_USUARIO =
+            "DROP TABLE IF EXISTS " + Usuario.TABLE_NAME_USUARIO;
 
     private EstructuraBBDD() {}
     /* Clase interna que define la estructura de la tabla de operas */
@@ -58,5 +67,12 @@ public final class EstructuraBBDD {
         public static final String COLUMN_EQUIPO = "equipo";
         public static final String COLUMN_MEDIA = "media";
         public static final String COLUMN_FOTO = "foto";
+    }
+
+    public static class Usuario implements BaseColumns {
+                public static final String TABLE_NAME_USUARIO = "usuario";
+        public static final String COLUMN_NOMBRE = "nombre";
+        public static final String COLUMN_CONTRASEÑA = "contraseña";
+
     }
 }

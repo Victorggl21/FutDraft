@@ -21,6 +21,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(EstructuraBBDD.SQL_CREATE_ALINEACION);
         db.execSQL(EstructuraBBDD.SQL_CREATE_TITULARES);
         db.execSQL(EstructuraBBDD.SQL_CREATE_JUGADOR);
+        db.execSQL(EstructuraBBDD.SQL_CREATE_USUARIO);
     }
 
     @Override
