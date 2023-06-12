@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -173,8 +174,15 @@ public class MainActivity extends AppCompatActivity  {
         inserta2("Dorado","DC","Xbuyer",82,R.drawable.cartaxbuyer8);
         inserta2("Hidalgo","DC","Xbuyer",80,R.drawable.cartaxbuyer9);
 
+        db.delete("jugador","_id>116", null);
 
         db.delete("titulares",null, null);
+        ContentValues values2= new ContentValues();
+        values2.put("nombre","victorggl21");
+        values2.put("contraseña", "Pfg16Jun!");
+        //SI ES LA PRIMERA SE INSERTA, SI NO NO
+        db.insert("usuario",null, values2);
+        //inserta3();
 
         db.close();
     }
@@ -197,7 +205,23 @@ public class MainActivity extends AppCompatActivity  {
         db.insert("jugador", null, values2);
 
     }
+    private void inserta3(){
+        Cursor cursor =
+                db.query(EstructuraBBDD.Usuario.TABLE_NAME_USUARIO,null,
+                        null,null,null,null,null);
 
+        cursor.moveToFirst();
+        String nombre= cursor.getString(1);
+        if(nombre.equals("victorggl21")){
+        }else{
+            ContentValues values2= new ContentValues();
+            values2.put("nombre","victorggl21");
+            values2.put("contraseña", "Pfg16Jun!");
+            //SI ES LA PRIMERA SE INSERTA, SI NO NO
+            db.insert("usuario",null, values2);
+        }
+        db.close();
+    }
 
     public void empezar(View view) {
         Intent i = new Intent(this,Alineacion.class);

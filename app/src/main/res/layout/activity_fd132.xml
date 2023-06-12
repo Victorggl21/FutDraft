@@ -9,29 +9,29 @@
 
     <ImageButton
         android:id="@+id/imageButton8"
-        android:layout_width="75dp"
-        android:layout_height="105dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
         android:layout_centerHorizontal="false"
-        android:layout_marginLeft="-15dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginLeft="-30dp"
+        android:layout_marginTop="150dp"
         android:layout_toRightOf="@id/imageButton12"
         android:background="@drawable/draft_card"
         android:onClick="abrirdelantero" />
 
     <ImageButton
         android:id="@+id/imageButton9"
-        android:layout_width="75dp"
-        android:layout_height="105dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginRight="-13dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="-30dp"
         android:layout_toLeftOf="@id/imageButton12"
         android:background="@drawable/draft_card"
         android:onClick="abrirdelantero" />
 
     <ImageButton
         android:id="@+id/imageButton10"
-        android:layout_width="75dp"
-        android:layout_height="105dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
         android:layout_alignParentBottom="false"
         android:layout_centerInParent="true"
         android:layout_marginStart="38dp"
@@ -42,8 +42,8 @@
 
     <ImageButton
         android:id="@+id/imageButton11"
-        android:layout_width="75dp"
-        android:layout_height="105dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
         android:layout_alignParentBottom="false"
         android:layout_centerVertical="true"
         android:layout_marginRight="38dp"
@@ -54,8 +54,8 @@
 
     <ImageButton
         android:id="@+id/imageButton12"
-        android:layout_width="75dp"
-        android:layout_height="105dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
         android:layout_alignParentBottom="false"
         android:layout_centerInParent="true"
         android:layout_marginBottom="380dp"
@@ -64,24 +64,29 @@
 
     <ImageButton
         android:id="@+id/imageButton13"
-        android:layout_width="75dp"
-        android:layout_height="105dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
         android:layout_alignParentTop="false"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="false"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="160dp"
         android:background="@drawable/draft_card"
         android:onClick="abrirdf" />
 
     <ImageButton
         android:id="@+id/imageButton14"
-        android:layout_width="75dp"
-        android:layout_height="105dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="false"
         android:layout_marginBottom="15dp"
         android:background="@drawable/draft_card"
         android:onClick="abrirpt" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

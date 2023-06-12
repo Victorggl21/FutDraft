@@ -9,16 +9,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import java.util.Random;
 
 public class fd141 extends AppCompatActivity  implements View.OnClickListener{
-
+    RatingBar puntQuimica;
     ImageButton btn1,btn2, btn3, btn4,btn5, btn6, btn7;
     SQLiteHelper helper;
     SQLiteDatabase db;
+    Button btnQuimica;
     String posicion,equipo;
     int foto,delantero,portero=0,defensa=0,medio1=0,medio2=0,medio3=0,medio4=0;
 
@@ -40,7 +44,9 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         btn5.setOnClickListener(this);
         btn6.setOnClickListener(this);
         btn7.setOnClickListener(this);
-
+        puntQuimica = findViewById(R.id.ratingBar);
+        helper = new SQLiteHelper(this);
+        db = helper.getReadableDatabase();
 
     }
 
@@ -48,6 +54,37 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
     protected void onResume() {
         super.onResume();
         consultaEleccion();
+
+    }
+
+    private void consultaQuimica() {
+
+            puntQuimica.setAlpha(1);
+            Cursor cursor=  db.rawQuery("SELECT COUNT(equipo) from titulares group BY equipo",null);
+            if(cursor.getCount()!=0){
+                cursor.moveToFirst();
+                int cantidad2= cursor.getInt(0);
+                while(!cursor.isAfterLast()){
+                    if(cantidad2==7){
+                        puntQuimica.setRating(5);
+                    }else if(cantidad2==6){
+                        puntQuimica.setRating(4.5F);
+                    }else if(cantidad2==5){
+                        puntQuimica.setRating(puntQuimica.getRating()+4);
+                    }else if(cantidad2==4){
+                        puntQuimica.setRating(puntQuimica.getRating()+3);
+                    }else if(cantidad2==3){
+                        puntQuimica.setRating(puntQuimica.getRating()+2);
+                    }else if(cantidad2==2){
+                        puntQuimica.setRating(puntQuimica.getRating()+1.5F);
+                    }
+                }
+
+            }
+
+
+
+
     }
 
     public void abrirdelantero(View view) {
@@ -74,8 +111,7 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
     }
 
     private void consultaEleccion(){
-        helper = new SQLiteHelper(this);
-        db = helper.getReadableDatabase();
+
         Cursor cursor2 =
                 db.query(EstructuraBBDD.Titulares.TABLE_NAME_TITULARES, null,
                         null, null, null, null, null);
@@ -113,58 +149,61 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
             cursor2.moveToNext();
         }
         db.close();
+
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        db.close();
+    }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.imageButton:
                 abrirpt(null);
-                consultaEleccion();
+
+                consultaQuimica();
                 btn1.setEnabled(false);
                 break;
             case R.id.imageButton2:
                 abrirdf(null);
-                consultaEleccion();
                 btn2.setEnabled(false);
+                consultaQuimica();
                 break;
             case R.id.imageButton3:
                 abrirmc(null);
-                consultaEleccion();
                 btn3.setEnabled(false);
+                consultaQuimica();
                 break;
             case R.id.imageButton4:
                 abrirmc(null);
-                consultaEleccion();
                 btn4.setEnabled(false);
-
+                consultaQuimica();
                 break;
             case R.id.imageButton5:
                 abrirmc(null);
-                consultaEleccion();
                 btn5.setEnabled(false);
-
+                consultaQuimica();
                 break;
             case R.id.imageButton6:
                 abrirmc(null);
-                consultaEleccion();
                 btn6.setEnabled(false);
-
+                consultaQuimica();
                 break;
             case R.id.imageButton7:
                 abrirdelantero(null);
-                consultaEleccion();
                 btn7.setEnabled(false);
-                //btn7.setBackgroundResource(delantero);
-                //btn7.setAlpha(0.5F);
-
+                consultaQuimica();
                 break;
+
             default:
 
                 break;
 
         }
     }
+
+
 }

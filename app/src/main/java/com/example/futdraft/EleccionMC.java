@@ -19,21 +19,6 @@ public class EleccionMC extends AppCompatActivity  implements View.OnClickListen
     SQLiteDatabase db;
 
     ArrayList<Integer> medios = new ArrayList<>() ;
-            /*new int []{
-            R.drawable.carta1k6,R.drawable.carta1k7,R.drawable.carta1k8,
-            R.drawable.cartaaniaquiladores6,R.drawable.cartaaniaquiladores7,R.drawable.cartaaniaquiladores8,
-            R.drawable.cartabarrio4,R.drawable.cartabarrio5,R.drawable.cartabarrio6,R.drawable.cartabarrio7,R.drawable.cartabarrio8,
-            R.drawable.cartajijantes7,R.drawable.cartajijantes8,R.drawable.cartajijantes9,
-            R.drawable.cartakuni2,R.drawable.cartakuni3,R.drawable.cartakuni4,R.drawable.cartakuni5,
-            R.drawable.cartapio3,R.drawable.cartapio4,R.drawable.cartapio5,
-            R.drawable.cartaporcinos3,R.drawable.cartaporcinos4,R.drawable.cartaporcinos5,
-            R.drawable.cartarayo8,
-            R.drawable.cartasaiyans1,R.drawable.cartasaiyans2,R.drawable.cartasaiyans3,R.drawable.cartasaiyans4,
-            R.drawable.cartatroncos4,R.drawable.cartatroncos5,R.drawable.cartatroncos6,
-            R.drawable.cartaum2,R.drawable.cartaum3,R.drawable.cartaum4,
-            R.drawable.cartaxbuyer4,R.drawable.cartaxbuyer5,R.drawable.cartaxbuyer6
-    }*/;
-
 
     int n1=0,n2=0,n3=0,n4=0;
 

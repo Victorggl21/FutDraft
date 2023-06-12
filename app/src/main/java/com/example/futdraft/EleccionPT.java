@@ -10,33 +10,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class EleccionPT extends AppCompatActivity implements View.OnClickListener{
 
     SQLiteHelper helper;
     SQLiteDatabase db;
+    ArrayList <Integer> portero = new ArrayList<>();
 
-    int [] portero = new int []{
-            R.drawable.carta1k1,R.drawable.carta1k2,
-            R.drawable.cartaaniaquiladores1,R.drawable.cartaaniaquiladores2,
-            R.drawable.cartabarrio10,R.drawable.cartabarrio11,
-            R.drawable.cartajijantes1,R.drawable.cartajijantes2,
-            R.drawable.cartakuni1,
-            R.drawable.cartapio9,
-            R.drawable.cartaporcinos10,R.drawable.cartaporcinos11,
-            R.drawable.cartarayo10,R.drawable.cartarayo11,
-            R.drawable.cartasaiyans10,
-            R.drawable.cartatroncos1,R.drawable.cartatroncos2,
-            R.drawable.cartaum7,
-            R.drawable.cartaxbuyer1,R.drawable.cartaxbuyer2,
-    };
 
     int n1=0,n2=0, n3=0, n4=0;
-    Random random = new Random();
-    Random random2 = new Random();
-    Random random3 = new Random();
-    Random random4 = new Random();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,45 +31,55 @@ public class EleccionPT extends AppCompatActivity implements View.OnClickListene
     }
 
     public void jugadores(){
-        n1 = random.nextInt(portero.length);
-        n2 = random2.nextInt(portero.length);
-        while(portero[n2]==portero[n1] ){
-            n2 = random.nextInt(portero.length);
+        Random random = new Random();
+
+        helper = new SQLiteHelper(this);
+        db = helper.getReadableDatabase();
+        Cursor cursor =
+                db.query(EstructuraBBDD.Jugador.TABLE_NAME_JUGADOR, null,
+                        null, null, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            String posicion = cursor.getString(2);
+            int foto = cursor.getInt(5);
+            if (posicion.equals("PT")) {
+                portero.add(foto);
+            }
+            cursor.moveToNext();
         }
-        n3 = random3.nextInt(portero.length);
-        while(portero[n3]==portero[n2] || portero[n3]==portero[n1] ){
-            n3 = random.nextInt(portero.length);
-        }
-        n4 = random4.nextInt(portero.length);
-        while(portero[n4]==portero[n3] || portero[n4]==portero[n2] || portero[n4]==portero[n1] ){
-            n4 = random.nextInt(portero.length);
-        }
+        db.close();
+        do {
+            n1 = random.nextInt(portero.size());
+            n2 = random.nextInt(portero.size());
+            n3 = random.nextInt(portero.size());
+            n4 = random.nextInt(portero.size());
+        } while (n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4);
 
         ImageView img1 = findViewById(R.id.imageButton55);
-        img1.setImageResource(portero[n1]);
+        img1.setImageResource(portero.get(n1));
         ImageView img2 = findViewById(R.id.imageButton56);
-        img2.setImageResource(portero[n2]);
+        img2.setImageResource(portero.get(n2));
         ImageView img3 = findViewById(R.id.imageButton57);
-        img3.setImageResource(portero[n3]);
+        img3.setImageResource(portero.get(n3));
         ImageView img4 = findViewById(R.id.imageButton58);
-        img4.setImageResource(portero[n4]);
+        img4.setImageResource(portero.get(n4));
     }
 
     public void volveralineacion(View view) {
         onBackPressed();
-        consultaEleccion(portero[n1]);
+        consultaEleccion(portero.get(n1));
     }
     public void volveralineacion2(View view) {
         onBackPressed();
-        consultaEleccion(portero[n2]);
+        consultaEleccion(portero.get(n2));
     }
     public void volveralineacion3(View view) {
         onBackPressed();
-        consultaEleccion(portero[n3]);
+        consultaEleccion(portero.get(n3));
     }
     public void volveralineacion4(View view) {
         onBackPressed();
-        consultaEleccion(portero[n4]);
+        consultaEleccion(portero.get(n4));
     }
 
     private void consultaEleccion(int eleccion){
@@ -110,6 +105,7 @@ public class EleccionPT extends AppCompatActivity implements View.OnClickListene
             values2.put("equipo", equipo);
             values2.put("foto", foto);
             db.insert("titulares",null,values2);
+            db.delete("jugador","foto=="+foto,null);
         }
         db.close();
 
