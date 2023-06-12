@@ -48,19 +48,21 @@ public class Login extends AppCompatActivity {
             if(lgnombre.getText().toString().equals(nombre)&& lgpassword.getText().toString().equals(contraseña)){
                 Intent i = new Intent(this, Alineacion.class);
                 startActivity(i);
-            }else if(TextUtils.isEmpty(lgnombre.getText())){
-                Toast.makeText(getApplicationContext(), "Introduzca un nombre, por favor", Toast.LENGTH_SHORT).show();
-            }else if(lgnombre.getText().toString().equals(nombre)){
-                Toast.makeText(getApplicationContext(), "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
-            }else if(TextUtils.isEmpty(lgpassword.getText())){
-                Toast.makeText(getApplicationContext(), "Introduzca una contraseña, por favor", Toast.LENGTH_SHORT).show();
-            }else if(lgpassword.getText().toString().equals(contraseña)){
-                Toast.makeText(getApplicationContext(), "El usuario es incorrecta", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(getApplicationContext(), "Ninguno de los datos introducidos es correcto, por favor Regístrese", Toast.LENGTH_SHORT).show();
+                if(TextUtils.isEmpty(lgnombre.getText())){
+                    Toast.makeText(getApplicationContext(), "Introduzca un nombre, por favor", Toast.LENGTH_SHORT).show();
+                }else if(lgnombre.getText().toString().equals(nombre)){
+                    Toast.makeText(getApplicationContext(), "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(lgpassword.getText())){
+                    Toast.makeText(getApplicationContext(), "Introduzca una contraseña, por favor", Toast.LENGTH_SHORT).show();
+                }else if(lgpassword.getText().toString().equals(contraseña)){
+                    Toast.makeText(getApplicationContext(), "El usuario es incorrecta", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Ninguno de los datos introducidos es correcto, por favor Regístrese", Toast.LENGTH_SHORT).show();
+                }
+                cursor.moveToNext();
             }
-            //usuarios.add(usuario);
-            cursor.moveToNext();
+
         }
         if(valido){
 
