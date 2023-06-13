@@ -73,7 +73,7 @@ public class Eleccion extends AppCompatActivity  implements View.OnClickListener
     @Override
     protected void onStop() {
         super.onStop();
-        //db.close();
+        db.close();
     }
 
     public void volveralineacion(View view) {
@@ -101,11 +101,13 @@ public class Eleccion extends AppCompatActivity  implements View.OnClickListener
         cursor2.moveToFirst();
         String posicion = cursor2.getString(2);
         String equipo = cursor2.getString(3);
+        int media = cursor2.getInt(4);
         int foto = cursor2.getInt(5);
         while(foto!=eleccion){
             cursor2.moveToNext();
             posicion = cursor2.getString(2);
             equipo = cursor2.getString(3);
+            media= cursor2.getInt(4);
             foto = cursor2.getInt(5);
 
         }
@@ -114,6 +116,7 @@ public class Eleccion extends AppCompatActivity  implements View.OnClickListener
             values2.put("posicion", posicion);
             values2.put("equipo", equipo);
             values2.put("foto", foto);
+            values2.put("media",media);
             db.insert("titulares",null,values2);
             db.delete("jugador","foto=="+foto,null);
         }

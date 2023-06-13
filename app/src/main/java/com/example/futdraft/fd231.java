@@ -8,9 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 public class fd231 extends AppCompatActivity implements View.OnClickListener{
     ImageButton btn1,btn2, btn3, btn4,btn5, btn6, btn7;
+    RatingBar puntQuimica;
+    TextView txtMedia;
     SQLiteHelper helper;
     SQLiteDatabase db;
     String posicion,equipo;
@@ -34,14 +38,70 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
         btn5.setOnClickListener(this);
         btn6.setOnClickListener(this);
         btn7.setOnClickListener(this);
+        puntQuimica = findViewById(R.id.ratingBar4);
+        txtMedia = findViewById(R.id.textView12);
+        helper = new SQLiteHelper(this);
+        db = helper.getReadableDatabase();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        helper = new SQLiteHelper(this);
+        db = helper.getReadableDatabase();
         consultaEleccion();
+        consultaQuimica();
+        consultaMedia();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        db.close();
+    }
+
+    private void consultaQuimica() {
+        Cursor cursor=  db.rawQuery("SELECT COUNT(equipo) from titulares group by equipo",null);
+        if(cursor.getCount()!=0){
+            puntQuimica.setRating(0);
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                int cantidad2= cursor.getInt(0);
+                if(cantidad2==7){
+                    puntQuimica.setRating(5);
+                }else if(cantidad2==6){
+                    puntQuimica.setRating(4.5F);
+                }else if(cantidad2==5){
+                    puntQuimica.setRating(puntQuimica.getRating()+4);
+                }else if(cantidad2==4){
+                    puntQuimica.setRating(puntQuimica.getRating()+3);
+                }else if(cantidad2==3){
+                    puntQuimica.setRating(puntQuimica.getRating()+2);
+                }else if(cantidad2==2){
+                    puntQuimica.setRating(puntQuimica.getRating()+1.5F);
+                }
+                cursor.moveToNext();
+            }
+
+        }
+    }
+
+    private void consultaMedia() {
+        Cursor cursor2 =
+                db.query(EstructuraBBDD.Titulares.TABLE_NAME_TITULARES, null,
+                        null, null, null, null, null);
+        if(cursor2.getCount()!=0) {
+            cursor2.moveToFirst();
+            int jugadores = 0, total = 0;
+            while (!cursor2.isAfterLast()) {
+                int media = cursor2.getInt(4);
+                jugadores += 1;
+                total += media;
+                cursor2.moveToNext();
+            }
+            txtMedia.setText(String.valueOf(total / jugadores));
+        }
+    }
     public void abrirdelantero(View view) {
         Intent i = new Intent(this,Eleccion.class);
         startActivity(i);
@@ -60,8 +120,6 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
         startActivity(i);
     }
     private void consultaEleccion(){
-        helper = new SQLiteHelper(this);
-        db = helper.getReadableDatabase();
         Cursor cursor2 =
                 db.query(EstructuraBBDD.Titulares.TABLE_NAME_TITULARES, null,
                         null, null, null, null, null);
@@ -99,44 +157,36 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
             }
             cursor2.moveToNext();
         }
-        db.close();
     }
     @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.imageButton22:
                 abrirpt(null);
-                //consultaEleccion();
                 btn1.setEnabled(false);
                 break;
             case R.id.imageButton23:
                 abrirdf(null);
-                //consultaEleccion();
                 btn2.setEnabled(false);
                 break;
             case R.id.imageButton25:
                 abrirdf(null);
-                //consultaEleccion();
                 btn3.setEnabled(false);
                 break;
             case R.id.imageButton28:
                 abrirmc(null);
-                //consultaEleccion();
                 btn4.setEnabled(false);
                 break;
             case R.id.imageButton24:
                 abrirmc(null);
-                //consultaEleccion();
                 btn5.setEnabled(false);
                 break;
             case R.id.imageButton26:
                 abrirmc(null);
-                //consultaEleccion();
                 btn6.setEnabled(false);
                 break;
             case R.id.imageButton27:
                 abrirdelantero(null);
-                //consultaEleccion();
                 btn7.setEnabled(false);
                 break;
             default:

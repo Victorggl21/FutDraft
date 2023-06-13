@@ -35,37 +35,44 @@ public class Registro extends AppCompatActivity {
         Cursor cursor =
                 db.query(EstructuraBBDD.Usuario.TABLE_NAME_USUARIO,null,
                         null,null,null,null,null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            String nombre = cursor.getString(1);
-            if(lgnombre.getText().toString().equals(nombre)){
-                Toast.makeText(getApplicationContext(), "El usuario ya existe", Toast.LENGTH_SHORT).show();
-            }else if(!lgnombre.getText().toString().equals(nombre)&& lgpassword.getText().toString().equals(lgpassword2.getText().toString())&&!TextUtils.isEmpty(lgapellidos.getText())&&!TextUtils.isEmpty(lglocalidad.getText())){
-                valido =true;
-            }else if(!lgpassword.getText().toString().equals(lgpassword2.getText().toString())){
-                Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
-            }else if(TextUtils.isEmpty(lgnombre.getText())){
-                Toast.makeText(getApplicationContext(), "Introduzca un nombre, por favor", Toast.LENGTH_SHORT).show();
-            }else if(TextUtils.isEmpty(lgapellidos.getText())){
-                Toast.makeText(getApplicationContext(), "Introduzca sus apellidos, por favor", Toast.LENGTH_SHORT).show();
-            }else if(TextUtils.isEmpty(lglocalidad.getText())){
-                Toast.makeText(getApplicationContext(), "Introduzca su localidad, por favor", Toast.LENGTH_SHORT).show();
-            }else if(TextUtils.isEmpty(lgpassword.getText())){
-                Toast.makeText(getApplicationContext(), "Introduzca una contraseña, por favor", Toast.LENGTH_SHORT).show();
-            }else if(TextUtils.isEmpty(lgpassword2.getText())){
-                Toast.makeText(getApplicationContext(), "Confirme la contraseña, por favor", Toast.LENGTH_SHORT).show();
+        if(cursor.getCount()!=0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String nombre = cursor.getString(1);
+                if (lgnombre.getText().toString().equals(nombre)) {
+                    Toast.makeText(getApplicationContext(), "El usuario ya existe", Toast.LENGTH_SHORT).show();
+                } else if (!lgnombre.getText().toString().equals(nombre) && lgpassword.getText().toString().equals(lgpassword2.getText().toString()) && !TextUtils.isEmpty(lgapellidos.getText()) && !TextUtils.isEmpty(lglocalidad.getText())) {
+                    valido = true;
+                } else if (!lgpassword.getText().toString().equals(lgpassword2.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(lgnombre.getText())) {
+                    Toast.makeText(getApplicationContext(), "Introduzca un nombre, por favor", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(lgapellidos.getText())) {
+                    Toast.makeText(getApplicationContext(), "Introduzca sus apellidos, por favor", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(lglocalidad.getText())) {
+                    Toast.makeText(getApplicationContext(), "Introduzca su localidad, por favor", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(lgpassword.getText())) {
+                    Toast.makeText(getApplicationContext(), "Introduzca una contraseña, por favor", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(lgpassword2.getText())) {
+                    Toast.makeText(getApplicationContext(), "Confirme la contraseña, por favor", Toast.LENGTH_SHORT).show();
+                }
+                cursor.moveToNext();
             }
-            cursor.moveToNext();
+        }else{
+            valido=true;
         }
         if(valido){
             ContentValues values = new ContentValues();
             values.put("nombre",lgnombre.getText().toString());
             values.put("contraseña",lgpassword.getText().toString());
+            values.put("apellidos",lgapellidos.getText().toString());
+            values.put("localidad",lglocalidad.getText().toString());
             db.insert("usuario",null,values);
 
             Intent i = new Intent(this, Alineacion.class);
             startActivity(i);
 
         }
+
     }
 }

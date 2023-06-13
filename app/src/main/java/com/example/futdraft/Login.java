@@ -28,45 +28,59 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         lgnombre= findViewById(R.id.txtNombre);
         lgpassword = findViewById(R.id.txtContraseña);
-
     }
 
     public void login(View view) {
-        boolean valido=false;
+        boolean valido=false, valido1=true,valido2=true,valido3=true,valido4=true,valido5=true;
         helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
         Cursor cursor =
                 db.query(EstructuraBBDD.Usuario.TABLE_NAME_USUARIO,null,
                         null,null,null,null,null);
-        cursor.moveToFirst();
-        ArrayList<EstructuraBBDD.Usuario> usuarios;
-        EstructuraBBDD.Usuario usuario;
-        while (!cursor.isAfterLast()) {
-            String nombre = cursor.getString(1);
-            String contraseña = cursor.getString(2);
-            //usuario= new EstructuraBBDD.Usuario(nombre,contraseña);
-            if(lgnombre.getText().toString().equals(nombre)&& lgpassword.getText().toString().equals(contraseña)){
-                Intent i = new Intent(this, Alineacion.class);
-                startActivity(i);
-            }else{
-                if(TextUtils.isEmpty(lgnombre.getText())){
-                    Toast.makeText(getApplicationContext(), "Introduzca un nombre, por favor", Toast.LENGTH_SHORT).show();
-                }else if(lgnombre.getText().toString().equals(nombre)){
-                    Toast.makeText(getApplicationContext(), "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
-                }else if(TextUtils.isEmpty(lgpassword.getText())){
-                    Toast.makeText(getApplicationContext(), "Introduzca una contraseña, por favor", Toast.LENGTH_SHORT).show();
-                }else if(lgpassword.getText().toString().equals(contraseña)){
-                    Toast.makeText(getApplicationContext(), "El usuario es incorrecta", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Ninguno de los datos introducidos es correcto, por favor Regístrese", Toast.LENGTH_SHORT).show();
+        if(cursor.getCount()!=0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String nombre = cursor.getString(1);
+                String contraseña = cursor.getString(2);
+                if (lgnombre.getText().toString().equals(nombre) && lgpassword.getText().toString().equals(contraseña)) {
+                    valido = true;
+                } else if (TextUtils.isEmpty(lgnombre.getText())) {
+                    valido1 = false;
+                    //Toast.makeText(getApplicationContext(), "Introduzca un nombre, por favor", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(lgpassword.getText())) {
+                    valido3 = false;
+                    //Toast.makeText(getApplicationContext(), "Introduzca una contraseña, por favor", Toast.LENGTH_SHORT).show();
+                } else if (lgnombre.getText().toString().equals(nombre)) {
+                    valido2 = false;
+                    //Toast.makeText(getApplicationContext(), "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                } else if (lgpassword.getText().toString().equals(contraseña)) {
+                    valido4 = false;
+                    //Toast.makeText(getApplicationContext(), "El usuario es incorrecta", Toast.LENGTH_SHORT).show();
+                } else {
+                    valido5 = false;
+                    //Toast.makeText(getApplicationContext(), "Ninguno de los datos introducidos es correcto, por favor Regístrese", Toast.LENGTH_SHORT).show();
                 }
                 cursor.moveToNext();
             }
-
+            if (valido) {
+                Intent i = new Intent(this, Alineacion.class);
+                startActivity(i);
+            } else if (!valido1) {
+                Toast.makeText(getApplicationContext(), "Introduzca un nombre, por favor", Toast.LENGTH_SHORT).show();
+            } else if (!valido4) {
+                Toast.makeText(getApplicationContext(), "El usuario es incorrecto", Toast.LENGTH_SHORT).show();
+            } else if (!valido3) {
+                Toast.makeText(getApplicationContext(), "Introduzca una contraseña, por favor", Toast.LENGTH_SHORT).show();
+            } else if (!valido2) {
+                Toast.makeText(getApplicationContext(), "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+            } else if (!valido5) {
+                Toast.makeText(getApplicationContext(), "Ninguno de los datos introducidos es correcto, por favor Regístrese", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Todavía no hay ningun usuario, por favor Regístrese", Toast.LENGTH_SHORT).show();
         }
-        if(valido){
 
-        }
+        db.close();
     }
 
     public void registro(View view) {

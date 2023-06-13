@@ -29,7 +29,8 @@ public final class EstructuraBBDD {
                     +"(" + Titulares._ID + " integer PRIMARY KEY, "
                     + Titulares.COLUMN_POSICION + " text, "
                     + Titulares.COLUMN_EQUIPO + " text, "
-                    + Titulares.COLUMN_FOTO+ " integer);";
+                    + Titulares.COLUMN_FOTO + " integer,"
+                    + Titulares.COLUMN_MEDIA + " integer);";
 
     public static final String SQL_DELETE_TITULARES =
             "DROP TABLE IF EXISTS " + Titulares.TABLE_NAME_TITULARES;
@@ -38,7 +39,9 @@ public final class EstructuraBBDD {
             "CREATE TABLE IF NOT EXISTS "+ Usuario.TABLE_NAME_USUARIO
                     +"(" + Usuario._ID + " integer PRIMARY KEY, "
                     + Usuario.COLUMN_NOMBRE + " text, "
-                    + Usuario.COLUMN_CONTRASEÑA + " text);";
+                    + Usuario.COLUMN_CONTRASEÑA + " text,"
+                    + Usuario.COLUMN_APELLIDOS + " text,"
+                    + Usuario.COLUMN_LOCALIDAD + " text);";
 
     public static final String SQL_DELETE_USUARIO =
             "DROP TABLE IF EXISTS " + Usuario.TABLE_NAME_USUARIO;
@@ -58,6 +61,7 @@ public final class EstructuraBBDD {
         public static final String COLUMN_POSICION = "posicion";
         public static final String COLUMN_EQUIPO = "equipo";
         public static final String COLUMN_FOTO = "foto";
+        public static final String COLUMN_MEDIA = "media";
     }
 
     public static class Jugador implements BaseColumns {
@@ -73,6 +77,8 @@ public final class EstructuraBBDD {
                 public static final String TABLE_NAME_USUARIO = "usuario";
         public static final String COLUMN_NOMBRE = "nombre";
         public static final String COLUMN_CONTRASEÑA = "contraseña";
+        public static final String COLUMN_APELLIDOS = "apellidos";
+        public static final String COLUMN_LOCALIDAD = "localidad";
 
     }
 }

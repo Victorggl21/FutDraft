@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -22,7 +23,8 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
     ImageButton btn1,btn2, btn3, btn4,btn5, btn6, btn7;
     SQLiteHelper helper;
     SQLiteDatabase db;
-    Button btnQuimica;
+    Button btnAcabar;
+    TextView txtMedia;
     String posicion,equipo;
     int foto,delantero,portero=0,defensa=0,medio1=0,medio2=0,medio3=0,medio4=0;
 
@@ -45,26 +47,31 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         btn6.setOnClickListener(this);
         btn7.setOnClickListener(this);
         puntQuimica = findViewById(R.id.ratingBar);
+        txtMedia = findViewById(R.id.textView4);
+        btnAcabar = findViewById(R.id.btnacabar);
+        btnAcabar.setAlpha(0);
         helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        helper = new SQLiteHelper(this);
+        db = helper.getReadableDatabase();
         consultaEleccion();
+        consultaQuimica();
+        consultaMedia();
 
     }
 
     private void consultaQuimica() {
-
-            puntQuimica.setAlpha(1);
-            Cursor cursor=  db.rawQuery("SELECT COUNT(equipo) from titulares group BY equipo",null);
+            Cursor cursor=  db.rawQuery("SELECT COUNT(equipo) from titulares group by equipo",null);
             if(cursor.getCount()!=0){
+                puntQuimica.setRating(0);
                 cursor.moveToFirst();
-                int cantidad2= cursor.getInt(0);
                 while(!cursor.isAfterLast()){
+                    int cantidad2= cursor.getInt(0);
                     if(cantidad2==7){
                         puntQuimica.setRating(5);
                     }else if(cantidad2==6){
@@ -78,14 +85,30 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
                     }else if(cantidad2==2){
                         puntQuimica.setRating(puntQuimica.getRating()+1.5F);
                     }
+                    cursor.moveToNext();
                 }
 
             }
-
-
-
-
     }
+
+    private void consultaMedia() {
+        Cursor cursor2 =
+                db.query(EstructuraBBDD.Titulares.TABLE_NAME_TITULARES, null,
+                        null, null, null, null, null);
+        if(cursor2.getCount()!=0) {
+            cursor2.moveToFirst();
+            int jugadores = 0, total = 0;
+            while (!cursor2.isAfterLast()) {
+                int media = cursor2.getInt(4);
+                jugadores += 1;
+                total += media;
+                cursor2.moveToNext();
+            }
+            txtMedia.setText(String.valueOf(total / jugadores));
+        }
+    }
+
+
 
     public void abrirdelantero(View view) {
 
@@ -111,7 +134,6 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
     }
 
     private void consultaEleccion(){
-
         Cursor cursor2 =
                 db.query(EstructuraBBDD.Titulares.TABLE_NAME_TITULARES, null,
                         null, null, null, null, null);
@@ -148,7 +170,6 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
 
             cursor2.moveToNext();
         }
-        db.close();
 
     }
 
@@ -163,39 +184,31 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         switch(view.getId()){
             case R.id.imageButton:
                 abrirpt(null);
-
-                consultaQuimica();
                 btn1.setEnabled(false);
                 break;
             case R.id.imageButton2:
                 abrirdf(null);
                 btn2.setEnabled(false);
-                consultaQuimica();
                 break;
             case R.id.imageButton3:
                 abrirmc(null);
                 btn3.setEnabled(false);
-                consultaQuimica();
                 break;
             case R.id.imageButton4:
                 abrirmc(null);
                 btn4.setEnabled(false);
-                consultaQuimica();
                 break;
             case R.id.imageButton5:
                 abrirmc(null);
                 btn5.setEnabled(false);
-                consultaQuimica();
                 break;
             case R.id.imageButton6:
                 abrirmc(null);
                 btn6.setEnabled(false);
-                consultaQuimica();
                 break;
             case R.id.imageButton7:
                 abrirdelantero(null);
                 btn7.setEnabled(false);
-                consultaQuimica();
                 break;
 
             default:
