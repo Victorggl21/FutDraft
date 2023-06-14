@@ -22,6 +22,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(EstructuraBBDD.SQL_CREATE_TITULARES);
         db.execSQL(EstructuraBBDD.SQL_CREATE_JUGADOR);
         db.execSQL(EstructuraBBDD.SQL_CREATE_USUARIO);
+        db.execSQL(EstructuraBBDD.SQL_CREATE_EQUIPO);
+        db.execSQL(EstructuraBBDD.SQL_CREATE_PARTIDO);
     }
 
     @Override
@@ -30,5 +32,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         //Se crea la nueva versión de la tabla
         db.execSQL(EstructuraBBDD.SQL_DELETE_TITULARES);
         db.execSQL(EstructuraBBDD.SQL_DELETE_JUGADOR);
+        db.execSQL(EstructuraBBDD.SQL_DELETE_EQUIPO);
+        db.execSQL(EstructuraBBDD.SQL_DELETE_PARTIDO);
     }
 }

@@ -181,8 +181,16 @@ public class MainActivity extends AppCompatActivity  {
 
         db.delete("titulares",null, null);
 
-        //inserta3();
 
+        Cursor cursor2 =
+                db.query(EstructuraBBDD.Equipo.TABLE_NAME_EQUIPO,null,
+                        null,null,null,null,null);
+        if(cursor2.getCount()==0) {
+            inserta3("Jijantes", R.drawable.jijantes_fc_svg, 84);
+            inserta3("RayoBCN", R.drawable.rdb, 85);
+            inserta3("Saiyans", R.drawable.saiyans_fc, 86);
+            inserta3("Barrio", R.drawable.el_barrio_kl_logo_svg, 87.5F);
+        }
         db.close();
     }
 
@@ -204,28 +212,15 @@ public class MainActivity extends AppCompatActivity  {
         db.insert("jugador", null, values2);
 
     }
-    private void inserta3(){
-        Cursor cursor =
-                db.query(EstructuraBBDD.Usuario.TABLE_NAME_USUARIO,null,
-                        null,null,null,null,null);
-
-        cursor.moveToFirst();
-        String nombre= cursor.getString(1);
-        if(nombre.equals("victorggl21")){
-        }else{
-            ContentValues values2= new ContentValues();
-            values2.put("nombre","victorggl21");
-            values2.put("contraseña", "Pfg16Jun!");
-            //SI ES LA PRIMERA SE INSERTA, SI NO NO
-            db.insert("usuario",null, values2);
-        }
-        db.close();
+    private void inserta3(String nombre,int escudo,float valoracion) {
+        ContentValues values2 = new ContentValues();
+        values2.put("nombre", nombre);
+        values2.put("escudo", escudo);
+        values2.put("valoracion",valoracion);
+        //SI ES LA PRIMERA SE INSERTA, SI NO NO
+        db.insert("equipo", null, values2);
     }
 
-    public void empezar(View view) {
-        Intent i = new Intent(this,Alineacion.class);
-        startActivity(i);
-    }
 
     public void login(View view) {
         Intent i = new Intent(this,Login.class);

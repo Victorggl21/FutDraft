@@ -26,11 +26,11 @@ public class Registro extends AppCompatActivity {
         lglocalidad = findViewById(R.id.txtLocalidad);
         lgpassword = findViewById(R.id.TxtContraseñaR);
         lgpassword2 = findViewById(R.id.txtContraseñaR2);
+        helper = new SQLiteHelper(this);
+        db = helper.getReadableDatabase();
     }
 
     public void registro(View view) {
-        helper = new SQLiteHelper(this);
-        db = helper.getReadableDatabase();
         boolean valido=false;
         Cursor cursor =
                 db.query(EstructuraBBDD.Usuario.TABLE_NAME_USUARIO,null,
@@ -68,11 +68,27 @@ public class Registro extends AppCompatActivity {
             values.put("apellidos",lgapellidos.getText().toString());
             values.put("localidad",lglocalidad.getText().toString());
             db.insert("usuario",null,values);
-
+            ContentValues values1 = new ContentValues();
+            values1.put("nombre",lgnombre.getText().toString());
+            values1.put("escudo",R.drawable.kings_league);
+            values1.put("valoracion",0);
+            db.insert("equipo",null,values1);
+            ContentValues values2 = new ContentValues();
+            values2.put("equipo1",lgnombre.getText().toString());
+            values2.put("equipo2","jijantes");
+            values2.put("goles1",0);
+            values2.put("goles2",0);
+            db.insert("partido",null,values2);
             Intent i = new Intent(this, Alineacion.class);
             startActivity(i);
 
         }
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        db.close();
     }
 }

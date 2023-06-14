@@ -2,6 +2,7 @@ package com.example.futdraft;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,12 +29,12 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         lgnombre= findViewById(R.id.txtNombre);
         lgpassword = findViewById(R.id.txtContraseña);
+        helper = new SQLiteHelper(this);
+        db = helper.getReadableDatabase();
     }
 
     public void login(View view) {
         boolean valido=false, valido1=true,valido2=true,valido3=true,valido4=true,valido5=true;
-        helper = new SQLiteHelper(this);
-        db = helper.getReadableDatabase();
         Cursor cursor =
                 db.query(EstructuraBBDD.Usuario.TABLE_NAME_USUARIO,null,
                         null,null,null,null,null);
@@ -63,6 +64,18 @@ public class Login extends AppCompatActivity {
                 cursor.moveToNext();
             }
             if (valido) {
+                ContentValues values1 = new ContentValues();
+                values1.put("nombre",lgnombre.getText().toString());
+                values1.put("escudo",R.drawable.kings_league);
+                values1.put("valoracion",0);
+                db.insert("equipo",null,values1);
+                ContentValues values2 = new ContentValues();
+                values2.put("equipo1",lgnombre.getText().toString());
+                values2.put("equipo2","jijantes");
+                values2.put("goles1",0);
+                values2.put("goles2",0);
+                db.insert("partido",null,values2);
+
                 Intent i = new Intent(this, Alineacion.class);
                 startActivity(i);
             } else if (!valido1) {
@@ -79,7 +92,11 @@ public class Login extends AppCompatActivity {
         }else{
             Toast.makeText(getApplicationContext(), "Todavía no hay ningun usuario, por favor Regístrese", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
         db.close();
     }
 

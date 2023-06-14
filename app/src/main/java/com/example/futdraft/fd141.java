@@ -50,6 +50,7 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         txtMedia = findViewById(R.id.textView4);
         btnAcabar = findViewById(R.id.btnacabar);
         btnAcabar.setAlpha(0);
+        btnAcabar.setEnabled(false);
         helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
     }
@@ -62,7 +63,7 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         consultaEleccion();
         consultaQuimica();
         consultaMedia();
-
+        consultaAcabar();
     }
 
     private void consultaQuimica() {
@@ -108,7 +109,18 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         }
     }
 
-
+    private void consultaAcabar(){
+        Cursor cursor=
+                db.rawQuery("SELECT COUNT(*) from titulares",null);
+        if(cursor.getCount()!=0) {
+            cursor.moveToFirst();
+            int cantidad = cursor.getInt(0);
+            if(cantidad==7){
+                btnAcabar.setEnabled(true);
+                btnAcabar.setAlpha(1);
+            }
+        }
+    }
 
     public void abrirdelantero(View view) {
 
@@ -131,6 +143,10 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         Intent i = new Intent(this,EleccionPT.class);
         startActivity(i);
         //consultaEleccion();
+    }
+    public void acabar(View view) {
+        Intent i = new Intent(this,Torneo.class);
+        startActivity(i);
     }
 
     private void consultaEleccion(){
@@ -210,13 +226,18 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
                 abrirdelantero(null);
                 btn7.setEnabled(false);
                 break;
-
+            case R.id.btnacabar:
+                ContentValues values=new ContentValues();
+                int media=Integer.parseInt(txtMedia.getText().toString());
+                float quimica=puntQuimica.getRating();
+                values.put("valoracion",Float.valueOf(media)+quimica);
+                db.update("equipo",values,"valoracion==?", new String[]{"0"});
+                acabar(null);
             default:
 
                 break;
 
         }
     }
-
 
 }

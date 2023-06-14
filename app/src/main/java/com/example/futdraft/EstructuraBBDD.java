@@ -46,13 +46,33 @@ public final class EstructuraBBDD {
     public static final String SQL_DELETE_USUARIO =
             "DROP TABLE IF EXISTS " + Usuario.TABLE_NAME_USUARIO;
 
+    public static final String SQL_CREATE_PARTIDO =
+            "CREATE TABLE IF NOT EXISTS "+ Partido.TABLE_NAME_PARTIDO
+                    +"(" + Partido._ID + " integer PRIMARY KEY, "
+                    + Partido.COLUMN_EQUIPO1 + " text, "
+                    + Partido.COLUMN_EQUIPO2 + " text,"
+                    + Partido.COLUMN_GOLES1 + " integer,"
+                    + Partido.COLUMN_GOLES2 + " integer);";
+
+    public static final String SQL_DELETE_PARTIDO =
+            "DROP TABLE IF EXISTS " + Partido.TABLE_NAME_PARTIDO;
+
+    public static final String SQL_CREATE_EQUIPO =
+            "CREATE TABLE IF NOT EXISTS "+ Equipo.TABLE_NAME_EQUIPO
+                    +"(" + Equipo._ID + " integer PRIMARY KEY, "
+                    + Equipo.COLUMN_NOMBRE + " text, "
+                    + Equipo.COLUMN_ESCUDO + " integer,"
+                    + Equipo.COLUMN_VALORACION + " float);";
+
+    public static final String SQL_DELETE_EQUIPO =
+            "DROP TABLE IF EXISTS " + Equipo.TABLE_NAME_EQUIPO;
+
     private EstructuraBBDD() {}
     /* Clase interna que define la estructura de la tabla de operas */
     public static class Alineacion implements BaseColumns {
         public static final String TABLE_NAME_ALINEACION = "alineacion";
         public static final String COLUMN_FOTO = "foto";
         public static final String COLUMN_NOMBRE_ALINEACION = "nombre";
-
     }
 
 
@@ -74,11 +94,28 @@ public final class EstructuraBBDD {
     }
 
     public static class Usuario implements BaseColumns {
-                public static final String TABLE_NAME_USUARIO = "usuario";
+        public static final String TABLE_NAME_USUARIO = "usuario";
         public static final String COLUMN_NOMBRE = "nombre";
         public static final String COLUMN_CONTRASEÑA = "contraseña";
         public static final String COLUMN_APELLIDOS = "apellidos";
         public static final String COLUMN_LOCALIDAD = "localidad";
 
     }
+
+    public static class Equipo implements BaseColumns{
+        public static final String TABLE_NAME_EQUIPO = "equipo";
+        public static final String COLUMN_NOMBRE = "nombre";
+        public static final String COLUMN_ESCUDO = "escudo";
+        public static final String COLUMN_VALORACION = "valoracion";
+    }
+
+    public static class Partido implements BaseColumns {
+        public static final String TABLE_NAME_PARTIDO = "partido";
+        public static final String COLUMN_EQUIPO1 = "equipo1";
+        public static final String COLUMN_EQUIPO2 = "equipo2";
+        public static final String COLUMN_GOLES1 = "goles1";
+        public static final String COLUMN_GOLES2 = "goles2";
+
+    }
+
 }
