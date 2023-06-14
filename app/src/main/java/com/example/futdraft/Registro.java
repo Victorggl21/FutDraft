@@ -9,12 +9,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class Registro extends AppCompatActivity {
     SQLiteHelper helper;
     SQLiteDatabase db;
+    Button btnLogin;
     EditText lgnombre,lgapellidos,lglocalidad,lgpassword,lgpassword2;
 
     @Override
@@ -28,6 +30,9 @@ public class Registro extends AppCompatActivity {
         lgpassword2 = findViewById(R.id.txtContraseñaR2);
         helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
+        btnLogin = findViewById(R.id.button11);
+        btnLogin.setAlpha(0);
+        btnLogin.setEnabled(false);
     }
 
     public void registro(View view) {
@@ -40,7 +45,9 @@ public class Registro extends AppCompatActivity {
             while (!cursor.isAfterLast()) {
                 String nombre = cursor.getString(1);
                 if (lgnombre.getText().toString().equals(nombre)) {
-                    Toast.makeText(getApplicationContext(), "El usuario ya existe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "El usuario ya existe, haga click en Login", Toast.LENGTH_SHORT).show();
+                    btnLogin.setAlpha(1);
+                    btnLogin.setEnabled(true);
                 } else if (!lgnombre.getText().toString().equals(nombre) && lgpassword.getText().toString().equals(lgpassword2.getText().toString()) && !TextUtils.isEmpty(lgapellidos.getText()) && !TextUtils.isEmpty(lglocalidad.getText())) {
                     valido = true;
                 } else if (!lgpassword.getText().toString().equals(lgpassword2.getText().toString())) {
@@ -75,7 +82,7 @@ public class Registro extends AppCompatActivity {
             db.insert("equipo",null,values1);
             ContentValues values2 = new ContentValues();
             values2.put("equipo1",lgnombre.getText().toString());
-            values2.put("equipo2","jijantes");
+            values2.put("equipo2","Jijantes");
             values2.put("goles1",0);
             values2.put("goles2",0);
             db.insert("partido",null,values2);
@@ -90,5 +97,10 @@ public class Registro extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         db.close();
+    }
+
+    public void login(View view) {
+        Intent i = new Intent(this,Login.class);
+        startActivity(i);
     }
 }

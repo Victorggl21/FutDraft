@@ -65,7 +65,11 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         consultaMedia();
         consultaAcabar();
     }
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        db.close();
+    }
     private void consultaQuimica() {
             Cursor cursor=  db.rawQuery("SELECT COUNT(equipo) from titulares group by equipo",null);
             if(cursor.getCount()!=0){
@@ -145,6 +149,11 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         //consultaEleccion();
     }
     public void acabar(View view) {
+        ContentValues values=new ContentValues();
+        int media=Integer.parseInt(txtMedia.getText().toString());
+        float quimica=puntQuimica.getRating();
+        values.put("valoracion",media+quimica);
+        db.update("equipo",values,"valoracion = ?", new String[]{"0"});
         Intent i = new Intent(this,Torneo.class);
         startActivity(i);
     }
@@ -190,12 +199,6 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        db.close();
-    }
-
-    @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.imageButton:
@@ -227,11 +230,6 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
                 btn7.setEnabled(false);
                 break;
             case R.id.btnacabar:
-                ContentValues values=new ContentValues();
-                int media=Integer.parseInt(txtMedia.getText().toString());
-                float quimica=puntQuimica.getRating();
-                values.put("valoracion",Float.valueOf(media)+quimica);
-                db.update("equipo",values,"valoracion==?", new String[]{"0"});
                 acabar(null);
             default:
 

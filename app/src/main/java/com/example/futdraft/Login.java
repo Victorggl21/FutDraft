@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
                 db.insert("equipo",null,values1);
                 ContentValues values2 = new ContentValues();
                 values2.put("equipo1",lgnombre.getText().toString());
-                values2.put("equipo2","jijantes");
+                values2.put("equipo2","Jijantes");
                 values2.put("goles1",0);
                 values2.put("goles2",0);
                 db.insert("partido",null,values2);

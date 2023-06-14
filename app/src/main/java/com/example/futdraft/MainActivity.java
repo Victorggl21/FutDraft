@@ -181,16 +181,14 @@ public class MainActivity extends AppCompatActivity  {
 
         db.delete("titulares",null, null);
 
+        db.delete("equipo",null,null);
 
-        Cursor cursor2 =
-                db.query(EstructuraBBDD.Equipo.TABLE_NAME_EQUIPO,null,
-                        null,null,null,null,null);
-        if(cursor2.getCount()==0) {
-            inserta3("Jijantes", R.drawable.jijantes_fc_svg, 84);
-            inserta3("RayoBCN", R.drawable.rdb, 85);
-            inserta3("Saiyans", R.drawable.saiyans_fc, 86);
-            inserta3("Barrio", R.drawable.el_barrio_kl_logo_svg, 87.5F);
-        }
+        inserta3("Jijantes", R.drawable.jijantes_fc_svg, 84);
+        inserta3("RayoBCN", R.drawable.rdb, 85);
+        inserta3("Saiyans", R.drawable.saiyans_fc, 86);
+        inserta3("Barrio", R.drawable.el_barrio_kl_logo_svg, 87.5F);
+
+        db.delete("partido",null,null);
         db.close();
     }
 
