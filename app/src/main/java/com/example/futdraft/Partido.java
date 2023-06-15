@@ -32,8 +32,13 @@ public class Partido extends AppCompatActivity {
         imgEquipo2 = findViewById(R.id.imageView4);
         imgGol = findViewById(R.id.imageView5);
         imgParada = findViewById(R.id.imageView6);
-
         mostrarPartido();
+        try {
+            Thread.sleep(2000); // Espera durante 2000 milisegundos (2 segundos)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         simularPartido();
     }
 
@@ -76,26 +81,26 @@ public class Partido extends AppCompatActivity {
     public void simularPartido(){
         int minutos=Integer.parseInt(Minutos.getText().toString());
         float valoracion1=0,valoracion2=0;
-        while (minutos < 90) {
-            Cursor cursor =
-                    db.query(EstructuraBBDD.Equipo.TABLE_NAME_EQUIPO,null,
-                            null,null,null,null,null);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()){
-                String nombre= cursor.getString(1);
-                float valoracion = cursor.getFloat(3);
-                if(nombre.equals(Equipo1.getText().toString())){
-                    valoracion1=valoracion;
-                }
-                if(nombre.equals(Equipo2.getText().toString())){
-                    valoracion2=valoracion;
-                }
-                cursor.moveToNext();
+        Cursor cursor =
+                db.query(EstructuraBBDD.Equipo.TABLE_NAME_EQUIPO,null,
+                        null,null,null,null,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            String nombre= cursor.getString(1);
+            float valoracion = cursor.getFloat(3);
+            if(nombre.equals(Equipo1.getText().toString())){
+                valoracion1=valoracion;
             }
+            if(nombre.equals(Equipo2.getText().toString())){
+                valoracion2=valoracion;
+            }
+            cursor.moveToNext();
+        }
+        while (minutos < 90) {
             marcarGol(valoracion1, valoracion2);
             // Simular goles con cierta probabilidad en cada minuto
-
-            Minutos.setText(String.valueOf(minutos+5));
+            minutos+=5;
+            Minutos.setText(String.valueOf(minutos));
         }
     }
 
