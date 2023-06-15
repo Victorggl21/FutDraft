@@ -2,11 +2,13 @@ package com.example.futdraft;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
     TextView txtMedia;
     SQLiteHelper helper;
     SQLiteDatabase db;
+    Button btnAcabar;
     String posicion,equipo;
     int foto,delantero=0,portero=0,defensa=0,defensa2=0,medio1=0,medio2=0,medio3=0;
 
@@ -40,6 +43,9 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
         btn7.setOnClickListener(this);
         puntQuimica = findViewById(R.id.ratingBar4);
         txtMedia = findViewById(R.id.textView12);
+        btnAcabar = findViewById(R.id.btnacabar4);
+        btnAcabar.setAlpha(0);
+        btnAcabar.setEnabled(false);
         helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
     }
@@ -52,6 +58,7 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
         consultaEleccion();
         consultaQuimica();
         consultaMedia();
+        consultaAcabar();
     }
 
     @Override
@@ -102,6 +109,30 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
             txtMedia.setText(String.valueOf(total / jugadores));
         }
     }
+
+    private void consultaAcabar(){
+        Cursor cursor=
+                db.rawQuery("SELECT COUNT(*) from titulares",null);
+        if(cursor.getCount()!=0) {
+            cursor.moveToFirst();
+            int cantidad = cursor.getInt(0);
+            if(cantidad==7){
+                btnAcabar.setEnabled(true);
+                btnAcabar.setAlpha(1);
+            }
+        }
+    }
+
+    public void acabar(View view) {
+        ContentValues values=new ContentValues();
+        int media=Integer.parseInt(txtMedia.getText().toString());
+        float quimica=puntQuimica.getRating();
+        values.put("valoracion",media+quimica);
+        db.update("equipo",values,"valoracion = ?", new String[]{"0"});
+        Intent i = new Intent(this,Torneo.class);
+        startActivity(i);
+    }
+
     public void abrirdelantero(View view) {
         Intent i = new Intent(this,Eleccion.class);
         startActivity(i);
@@ -189,6 +220,8 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
                 abrirdelantero(null);
                 btn7.setEnabled(false);
                 break;
+            case R.id.btnacabar4:
+                acabar(null);
             default:
                 break;
         }

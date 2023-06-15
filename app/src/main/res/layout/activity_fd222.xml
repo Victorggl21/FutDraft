@@ -109,5 +109,19 @@
         android:textColor="#070707"
         android:textSize="24sp"
         android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnacabar3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:backgroundTint="#03D9C4"
+        android:onClick="acabar"
+        android:text="ACABAR"
+        android:textColor="#0B0B0B"
+        android:textStyle="bold"
+        app:cornerRadius="25dp" />
 
 </RelativeLayout>
