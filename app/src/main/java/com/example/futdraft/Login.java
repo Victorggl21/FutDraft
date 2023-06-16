@@ -67,7 +67,7 @@ public class Login extends AppCompatActivity {
                 ContentValues values1 = new ContentValues();
                 values1.put("nombre",lgnombre.getText().toString());
                 values1.put("escudo",R.drawable.kings_league);
-                values1.put("valoracion",90);
+                values1.put("valoracion",0);
                 db.insert("equipo",null,values1);
                 ContentValues values2 = new ContentValues();
                 values2.put("equipo1",lgnombre.getText().toString());
@@ -76,7 +76,7 @@ public class Login extends AppCompatActivity {
                 values2.put("goles2",0);
                 db.insert("partido",null,values2);
 
-                Intent i = new Intent(this, Torneo.class);
+                Intent i = new Intent(this, Alineacion.class);
                 startActivity(i);
             } else if (!valido1) {
                 Toast.makeText(getApplicationContext(), "Introduzca un nombre, por favor", Toast.LENGTH_SHORT).show();

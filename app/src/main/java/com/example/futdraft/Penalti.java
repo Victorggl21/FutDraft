@@ -91,9 +91,9 @@ public class Penalti extends AppCompatActivity{
                             db.query(EstructuraBBDD.Partido.TABLE_NAME_PARTIDO,null,
                                     null,null,null,null,null);
                     cursor.moveToLast();
-                    String equipo1 = cursor.getString(2);
-                    String equipo2 = cursor.getString(3);
-                    int goles1 = cursor.getInt(4);
+                    String equipo1 = cursor.getString(1);
+                    String equipo2 = cursor.getString(2);
+                    int goles1 = cursor.getInt(3);
                     int anotar = goles1+1;
                     ContentValues values = new ContentValues();
                     values.put("goles1",anotar);
@@ -124,6 +124,7 @@ public class Penalti extends AppCompatActivity{
                 derab.setAlpha(0);
             }
             public  void onFinish(){
+
                 volverAtras();
             }
         }.start();

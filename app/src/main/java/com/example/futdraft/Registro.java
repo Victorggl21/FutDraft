@@ -86,7 +86,7 @@ public class Registro extends AppCompatActivity {
             values2.put("goles1",0);
             values2.put("goles2",0);
             db.insert("partido",null,values2);
-            Intent i = new Intent(this, Alineacion.class);
+            Intent i = new Intent(this, Tutorial.class);
             startActivity(i);
 
         }

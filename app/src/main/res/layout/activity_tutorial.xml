@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FB8C00"
+    android:orientation="vertical"
+    tools:context=".Tutorial">
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:text="TUTORIAL"
+        android:textAlignment="center"
+        android:textColor="#020202"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:text="COMO ERES UN NUEVO USUARIO AQUÍ TIENES UNAS PEQUEÑAS INSTRUCCIONES DEL JUEGO."
+        android:textAlignment="center"
+        android:textColor="#1C1919"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:text="EL JUEGO CONSISTE EN CREAR EL MEJOR EQUIPO POSIBLE, PARA ELLO TENEMOS DOS ATRIBUTOS, LA QUÍMICA:"
+        android:textAlignment="center"
+        android:textColor="#1C1919"
+        android:textSize="24sp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:rating="2.5" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:text="Y TAMBIÉN TENEMOS LA MEDIA --> MEDIA: 84."
+        android:textAlignment="center"
+        android:textColor="#1C1919"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:text="PARA AUMENTAR LA QUÍMICA DEBEMOS ELEGIR JUGADORES DEL MISMO EQUIPO , LA MEDIA SE BASA EN LA VALORACIÓN DE CADA JUGADOR. TENER UNA VALORACIÓN ALTA TE HARÁ MÁS FACIL LAS COSAS, YA QUE TENDRÁS MAS OPCIONES DE METER GOL"
+        android:textAlignment="center"
+        android:textColor="#1C1919"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="#03D9C4"
+        android:onClick="empezar"
+        android:text="EMPEZAR"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+</LinearLayout>

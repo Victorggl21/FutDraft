@@ -13,6 +13,13 @@
         android:theme="@style/Theme.FutDraft"
         tools:targetApi="33">
         <activity
+            android:name=".Tutorial"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Partido"
             android:exported="false">
             <meta-data

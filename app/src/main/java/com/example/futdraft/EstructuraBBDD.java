@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 public final class EstructuraBBDD {
     public static final String SQL_CREATE_ALINEACION =
             "CREATE TABLE IF NOT EXISTS "+ Alineacion.TABLE_NAME_ALINEACION
-                    +"(" + Alineacion._ID + " integer PRIMARY KEY AUTOINCREMENT, "
+                    +"(" + Alineacion._ID + " integer PRIMARY KEY, "
                     + Alineacion.COLUMN_FOTO + " integer, "
                     + Alineacion.COLUMN_NOMBRE_ALINEACION+ " text);";
     public static final String SQL_DELETE_ALINEACION =
@@ -13,7 +13,7 @@ public final class EstructuraBBDD {
 
     public static final String SQL_CREATE_JUGADOR =
             "CREATE TABLE IF NOT EXISTS "+ Jugador.TABLE_NAME_JUGADOR
-                    +"(" + Jugador._ID + " integer PRIMARY KEY AUTOINCREMENT, "
+                    +"(" + Jugador._ID + " integer PRIMARY KEY, "
                     + Jugador.COLUMN_NOMBRE + " text, "
                     + Jugador.COLUMN_POSICION + " text, "
                     + Jugador.COLUMN_EQUIPO + " text,"
@@ -26,7 +26,7 @@ public final class EstructuraBBDD {
 
     public static final String SQL_CREATE_TITULARES =
             "CREATE TABLE IF NOT EXISTS "+ Titulares.TABLE_NAME_TITULARES
-                    +"(" + Titulares._ID + " integer PRIMARY KEY AUTOINCREMENT, "
+                    +"(" + Titulares._ID + " integer PRIMARY KEY, "
                     + Titulares.COLUMN_POSICION + " text, "
                     + Titulares.COLUMN_EQUIPO + " text, "
                     + Titulares.COLUMN_FOTO + " integer,"
@@ -37,7 +37,7 @@ public final class EstructuraBBDD {
 
     public static final String SQL_CREATE_USUARIO =
             "CREATE TABLE IF NOT EXISTS "+ Usuario.TABLE_NAME_USUARIO
-                    +"(" + Usuario._ID + " integer PRIMARY KEY AUTOINCREMENT, "
+                    +"(" + Usuario._ID + " integer PRIMARY KEY, "
                     + Usuario.COLUMN_NOMBRE + " text, "
                     + Usuario.COLUMN_CONTRASEÑA + " text,"
                     + Usuario.COLUMN_APELLIDOS + " text,"
@@ -48,7 +48,7 @@ public final class EstructuraBBDD {
 
     public static final String SQL_CREATE_PARTIDO =
             "CREATE TABLE IF NOT EXISTS "+ Partido.TABLE_NAME_PARTIDO
-                    +"(" + Partido._ID + " integer PRIMARY KEY AUTOINCREMENT, "
+                    +"(" + Partido._ID + " integer PRIMARY KEY, "
                     + Partido.COLUMN_EQUIPO1 + " text, "
                     + Partido.COLUMN_EQUIPO2 + " text,"
                     + Partido.COLUMN_GOLES1 + " integer,"
@@ -59,7 +59,7 @@ public final class EstructuraBBDD {
 
     public static final String SQL_CREATE_EQUIPO =
             "CREATE TABLE IF NOT EXISTS "+ Equipo.TABLE_NAME_EQUIPO
-                    +"(" + Equipo._ID + " integer PRIMARY KEY AUTOINCREMENT, "
+                    +"(" + Equipo._ID + " integer PRIMARY KEY, "
                     + Equipo.COLUMN_NOMBRE + " text, "
                     + Equipo.COLUMN_ESCUDO + " integer,"
                     + Equipo.COLUMN_VALORACION + " float);";
@@ -111,7 +111,6 @@ public final class EstructuraBBDD {
 
     public static class Partido implements BaseColumns {
         public static final String TABLE_NAME_PARTIDO = "partido";
-        public static final String _ID = "id";
         public static final String COLUMN_EQUIPO1 = "equipo1";
         public static final String COLUMN_EQUIPO2 = "equipo2";
         public static final String COLUMN_GOLES1 = "goles1";

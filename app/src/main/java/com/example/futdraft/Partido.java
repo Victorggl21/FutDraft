@@ -39,14 +39,13 @@ public class Partido extends AppCompatActivity {
         imgGol = findViewById(R.id.imageView5);
         Glide.with(this).asGif().load(R.drawable.gol).into(imgGol);
         imgParada = findViewById(R.id.imageView6);
-        Glide.with(this).asGif().load(R.drawable.victory).into(imgParada);
+        Glide.with(this).asGif().load(R.drawable.win).into(imgParada);
         volver = findViewById(R.id.button);
         imgGol.setVisibility(View.INVISIBLE);
         imgParada.setVisibility(View.INVISIBLE);
         volver.setAlpha(0);
         volver.setEnabled(false);
         mostrarPartido();
-        simularPartido();
     }
 
     @Override
@@ -54,6 +53,7 @@ public class Partido extends AppCompatActivity {
         super.onResume();
         helper = new SQLiteHelper(this);
         db = helper.getReadableDatabase();
+        simularPartido();
     }
 
     @Override
@@ -112,7 +112,7 @@ public class Partido extends AppCompatActivity {
         }
             float finalValoracion = valoracion1;
             float finalValoracion1 = valoracion2;
-            new CountDownTimer(18000, 1000){
+            new CountDownTimer(19000, 1000){
                 public void onTick(long millisUntilFinished){
                     if(minutos<90) {
                         marcarGol(finalValoracion, finalValoracion1);
@@ -143,20 +143,22 @@ public class Partido extends AppCompatActivity {
                             values.put("equipo2", nuevoEquipo);
                             values.put("goles1", 0);
                             values.put("goles2", 0);
-                            db.insert("partido", null, values);
+                            if(!equipo1.equals(nuevoEquipo)) {
+                                db.insert("partido", null, values);
+                            }
                             imgParada.setVisibility(View.VISIBLE);
                             volver.setEnabled(true);
                             volver.setAlpha(1);
                         } else if (goles2 > goles1) {
-                            Glide.with(getApplicationContext()).asGif().load(R.drawable.defeat).into(imgParada);
+                            Glide.with(getApplicationContext()).asGif().load(R.drawable.lose).into(imgParada);
                             imgParada.setVisibility(View.VISIBLE);
                             volver.setEnabled(true);
                             volver.setAlpha(1);
                         } else {
                             Intent i = new Intent(getApplicationContext(), Penalti.class);
                             startActivity(i);
-                            volver.setEnabled(true);
-                            volver.setAlpha(1);
+                                    volver.setEnabled(true);
+                                    volver.setAlpha(1);
                         }
                     }
                 }

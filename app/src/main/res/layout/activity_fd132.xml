@@ -26,7 +26,8 @@
         android:layout_marginRight="-30dp"
         android:layout_toLeftOf="@id/imageButton12"
         android:background="@drawable/draft_card"
-        android:onClick="abrirdelantero" />
+        android:onClick="abrirdelantero"
+        android:saveEnabled="false" />
 
     <ImageButton
         android:id="@+id/imageButton10"

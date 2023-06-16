@@ -31,8 +31,11 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
         btn2= findViewById(R.id.imageButton2);
         btn3= findViewById(R.id.imageButton3);
         btn4= findViewById(R.id.imageButton4);
+        btn4.setEnabled(false);
         btn5= findViewById(R.id.imageButton5);
+        btn5.setEnabled(false);
         btn6= findViewById(R.id.imageButton6);
+        btn6.setEnabled(false);
         btn7= findViewById(R.id.imageButton7);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -176,12 +179,15 @@ public class fd141 extends AppCompatActivity  implements View.OnClickListener{
                 if(medio1==0){
                     medio1=foto;
                     btn3.setBackgroundResource(medio1);
+                    btn4.setEnabled(true);
                 }else if(medio2==0 && foto!=medio1){
                     medio2=foto;
                     btn4.setBackgroundResource(medio2);
+                    btn5.setEnabled(true);
                 }else if(medio3==0 && foto!=medio1 && foto!=medio2){
                     medio3=foto;
                     btn5.setBackgroundResource(medio3);
+                    btn6.setEnabled(true);
                 }else if(medio4==0 && foto!=medio1 && foto!=medio2 && foto!=medio3){
                     medio4=foto;
                     btn6.setBackgroundResource(medio4);

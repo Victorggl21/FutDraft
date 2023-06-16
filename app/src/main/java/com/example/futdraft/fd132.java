@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+
 public class fd132 extends AppCompatActivity implements View.OnClickListener{
     ImageButton btn1,btn2, btn3, btn4,btn5, btn6, btn7;
     RatingBar puntQuimica;
@@ -31,8 +32,11 @@ public class fd132 extends AppCompatActivity implements View.OnClickListener{
         btn2= findViewById(R.id.imageButton13);
         btn3= findViewById(R.id.imageButton12);
         btn4= findViewById(R.id.imageButton11);
+        btn4.setEnabled(false);
         btn5= findViewById(R.id.imageButton10);
+        btn5.setEnabled(false);
         btn6= findViewById(R.id.imageButton9);
+        btn6.setEnabled(false);
         btn7= findViewById(R.id.imageButton8);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -165,6 +169,7 @@ public class fd132 extends AppCompatActivity implements View.OnClickListener{
                 if(delantero==0){
                     delantero=foto;
                     btn7.setBackgroundResource(delantero);
+                    btn6.setEnabled(true);
                 }else if(delantero2==0 && foto!=delantero){
                     delantero2= foto;
                     btn6.setBackgroundResource(delantero2);
@@ -179,9 +184,11 @@ public class fd132 extends AppCompatActivity implements View.OnClickListener{
                 if(medio1==0){
                     medio1=foto;
                     btn3.setBackgroundResource(medio1);
+                    btn4.setEnabled(true);
                 }else if(medio2==0 && foto!=medio1){
                     medio2=foto;
                     btn4.setBackgroundResource(medio2);
+                    btn5.setEnabled(true);
                 }else if(medio3==0 && foto!=medio1 && foto!=medio2){
                     medio3=foto;
                     btn5.setBackgroundResource(medio3);

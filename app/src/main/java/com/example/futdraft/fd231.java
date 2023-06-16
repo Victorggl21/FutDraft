@@ -30,9 +30,12 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
         btn1= findViewById(R.id.imageButton22);
         btn2= findViewById(R.id.imageButton23);
         btn3= findViewById(R.id.imageButton25);
+        btn3.setEnabled(false);
         btn4= findViewById(R.id.imageButton28);
-        btn5= findViewById(R.id.imageButton24);
-        btn6= findViewById(R.id.imageButton26);
+        btn5= findViewById(R.id.imageButton26);
+        btn5.setEnabled(false);
+        btn6= findViewById(R.id.imageButton24);
+        btn6.setEnabled(false);
         btn7= findViewById(R.id.imageButton27);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -170,6 +173,7 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
                 if(defensa==0){
                     defensa=foto;
                     btn2.setBackgroundResource(defensa);
+                    btn3.setEnabled(true);
                 }else if(defensa2==0 && foto!=defensa){
                     defensa2=foto;
                     btn3.setBackgroundResource(defensa2);
@@ -178,9 +182,11 @@ public class fd231 extends AppCompatActivity implements View.OnClickListener{
                 if(medio1==0){
                     medio1=foto;
                     btn4.setBackgroundResource(medio1);
+                    btn5.setEnabled(true);
                 }else if(medio2==0 && foto!=medio1){
                     medio2=foto;
                     btn5.setBackgroundResource(medio2);
+                    btn6.setEnabled(true);
                 }else if(medio3==0 && foto!=medio1 && foto!=medio2){
                     medio3=foto;
                     btn6.setBackgroundResource(medio3);
