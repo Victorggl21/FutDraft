@@ -9,14 +9,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 
 
 public class Partido extends AppCompatActivity {
     SQLiteHelper helper;
     SQLiteDatabase db;
+    Button volver;
     TextView Equipo1,Equipo2,Goles,Minutos;
     ImageView imgEquipo1,imgEquipo2,imgGol,imgParada;
     public int minutos;
@@ -34,17 +37,16 @@ public class Partido extends AppCompatActivity {
         imgEquipo1 = findViewById(R.id.imageView3);
         imgEquipo2 = findViewById(R.id.imageView4);
         imgGol = findViewById(R.id.imageView5);
+        Glide.with(this).asGif().load(R.drawable.gol).into(imgGol);
         imgParada = findViewById(R.id.imageView6);
+        Glide.with(this).asGif().load(R.drawable.victory).into(imgParada);
+        volver = findViewById(R.id.button);
+        imgGol.setVisibility(View.INVISIBLE);
+        imgParada.setVisibility(View.INVISIBLE);
+        volver.setAlpha(0);
+        volver.setEnabled(false);
         mostrarPartido();
         simularPartido();
-
-        /*try {
-            Thread.sleep(2000); // Espera durante 2000 milisegundos (2 segundos)
-            simularPartido();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
     }
 
     @Override
@@ -108,20 +110,58 @@ public class Partido extends AppCompatActivity {
             }
             cursor.moveToNext();
         }
-        while (minutos < 90) {
             float finalValoracion = valoracion1;
             float finalValoracion1 = valoracion2;
-            new CountDownTimer(30000, 2000){
+            new CountDownTimer(18000, 1000){
                 public void onTick(long millisUntilFinished){
-                    marcarGol(finalValoracion, finalValoracion1);
-                    minutos+=5;
-                    Minutos.setText(String.valueOf(minutos));
+                    if(minutos<90) {
+                        marcarGol(finalValoracion, finalValoracion1);
+                        minutos += 5;
+                        Minutos.setText(String.valueOf(minutos));
+                    }
                 }
                 public  void onFinish(){
+                    Cursor cursor2 =
+                            db.query(EstructuraBBDD.Partido.TABLE_NAME_PARTIDO,null,
+                                    null,null,null,null,null);
+                    cursor2.moveToLast();
+                    String equipo1 = cursor2.getString(1);
+                    String equipo2 = cursor2.getString(2);
+                    int goles1 = cursor2.getInt(3);
+                    int goles2 = cursor2.getInt(4);
+                    db.delete("equipo","nombre == ?",new String[]{equipo2});
+                    Cursor cursor3 =
+                            db.query(EstructuraBBDD.Equipo.TABLE_NAME_EQUIPO,null,
+                                    null,null,null,null,null);
+                    cursor3.moveToFirst();
+                    String nuevoEquipo = cursor3.getString(1);
+                    if(minutos==90) {
+                        if (goles1 > goles2) {
+
+                            ContentValues values = new ContentValues();
+                            values.put("equipo1", equipo1);
+                            values.put("equipo2", nuevoEquipo);
+                            values.put("goles1", 0);
+                            values.put("goles2", 0);
+                            db.insert("partido", null, values);
+                            imgParada.setVisibility(View.VISIBLE);
+                            volver.setEnabled(true);
+                            volver.setAlpha(1);
+                        } else if (goles2 > goles1) {
+                            Glide.with(getApplicationContext()).asGif().load(R.drawable.defeat).into(imgParada);
+                            imgParada.setVisibility(View.VISIBLE);
+                            volver.setEnabled(true);
+                            volver.setAlpha(1);
+                        } else {
+                            Intent i = new Intent(getApplicationContext(), Penalti.class);
+                            startActivity(i);
+                            volver.setEnabled(true);
+                            volver.setAlpha(1);
+                        }
+                    }
                 }
             }.start();
 
-        }
 
     }
 
@@ -141,24 +181,29 @@ public class Partido extends AppCompatActivity {
                 Goles.setText(goles1+" - "+goles2);
                 values.put("goles1",goles1);
                 db.update("partido",values,"equipo1 == ?",new String[]{equipo1});
+                new CountDownTimer(1000, 1000){
+                    public void onTick(long millisUntilFinished){
+                            imgGol.setVisibility(View.VISIBLE);
+                    }
+                    public  void onFinish(){
+                        imgGol.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
+
             }
             if (Math.random() < 0.10) {
                 goles2+=1;
                 Goles.setText(goles1+" - "+goles2);
                 values.put("goles2",goles2);
                 db.update("partido",values,"equipo2 == ?",new String[]{equipo2});
-
-            }
-            if(Math.random() >0.95){
-                Intent i = new Intent(this,Penalti.class);
-                startActivity(i);
-                try {
-                    Thread.sleep(5000);// Espera durante 2000 milisegundos (2 segundos)
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                new CountDownTimer(1000, 1000){
+                    public void onTick(long millisUntilFinished){
+                        imgGol.setVisibility(View.VISIBLE);
+                    }
+                    public  void onFinish(){
+                        imgGol.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
             }
         }else if(valoracion2 > valoracion1){
             if (Math.random() < 0.10) {
@@ -166,23 +211,28 @@ public class Partido extends AppCompatActivity {
                 Goles.setText(goles1+" - "+goles2);
                 values.put("goles1",goles1);
                 db.update("partido",values,"equipo1 == ?",new String[]{equipo1});
+                new CountDownTimer(1000, 1000){
+                    public void onTick(long millisUntilFinished){
+                        imgGol.setVisibility(View.VISIBLE);
+                    }
+                    public  void onFinish(){
+                        imgGol.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
             }
             if (Math.random() < 0.15) {
                 goles2+=1;
                 Goles.setText(goles1+" - "+goles2);
                 values.put("goles2",goles2);
                 db.update("partido",values,"equipo2 == ?",new String[]{equipo2});
-            }
-            if(Math.random() >0.95){
-                Intent i = new Intent(this,Penalti.class);
-                startActivity(i);
-                try {
-                    Thread.sleep(5000); // Espera durante 2000 milisegundos (2 segundos)
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                new CountDownTimer(1000, 1000){
+                    public void onTick(long millisUntilFinished){
+                        imgGol.setVisibility(View.VISIBLE);
+                    }
+                    public  void onFinish(){
+                        imgGol.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
             }
         }else{
             if (Math.random() < 0.15) {
@@ -190,27 +240,35 @@ public class Partido extends AppCompatActivity {
                 Goles.setText(goles1+" - "+goles2);
                 values.put("goles1",goles1);
                 db.update("partido",values,"equipo1 == ?",new String[]{equipo1});
+                new CountDownTimer(1000, 1000){
+                    public void onTick(long millisUntilFinished){
+                        imgGol.setVisibility(View.VISIBLE);
+                    }
+                    public  void onFinish(){
+                        imgGol.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
             }
             if (Math.random() < 0.15) {
                 goles2+=1;
                 Goles.setText(goles1+" - "+goles2);
                 values.put("goles2",goles2);
                 db.update("partido",values,"equipo2 == ?",new String[]{equipo2});
-            }
-            if(Math.random() >0.95){
-                Intent i = new Intent(this,Penalti.class);
-                startActivity(i);
-                try {
-                    Thread.sleep(5000); // Espera durante 2000 milisegundos (2 segundos)
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                new CountDownTimer(1000, 1000){
+                    public void onTick(long millisUntilFinished){
+                        imgGol.setVisibility(View.VISIBLE);
+                    }
+                    public  void onFinish(){
+                        imgGol.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
             }
         }
     }
 
 
-
+    public void volver(View view) {
+        Intent i = new Intent(this,Torneo.class);
+        startActivity(i);
+    }
 }
